@@ -22,3 +22,12 @@ NAMES=(Joe Jenny Sara Tony)
 for N in ${NAMES[@]} ; do
   echo "My name is $N"
 done  
+
+
+
+car=("BMW" "Toyota" "Honda")
+
+echo "${car[@]}"
+echo "${car[1]}"
+echo "first item"
+echo "${!car[@]}"
