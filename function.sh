@@ -38,3 +38,37 @@ return_function () {
 
 return_function Vill
 echo $?
+
+
+
+
+function funcName()
+{
+    echo "this is new func"
+}
+
+funcName
+
+function funcEcho()
+{
+    echo $1
+}
+
+funcEcho hi
+
+function funcPrint()
+{
+    echo $1 $2 $3 $4 $5
+}
+
+funcPrint hi hello world bash script
+
+function funcCheck()
+{
+    text="Hello world"
+    echo $text
+}
+
+funcCheck
+
+
