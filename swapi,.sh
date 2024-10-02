@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# sudo control
+if [ $(id -u) -ne 0 ]; then
+    echo "must be run with root privileges"
+    exit 1
+fi
+
 
 REDBg=$'\e[0;41m'
 GREENBg=$'\e[0;42m'
