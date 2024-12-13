@@ -14,3 +14,6 @@ case ${1,,} in
 
 esac
 
+
+
+cat >> file.txt
