@@ -34,12 +34,38 @@ echo $pwdfile
 
 echo "hello" "world" "text" "string"
 
+echo "one" "two" "three"
+
 echo "Hello World"
 
 hello="hello world"
 
 echo $hello
 
+echo "one" "two" \
+           "three" "five"
+# tab
+# line
+echo -e "one\ttwo\tthree"
+echo -e "one\ntwo\nthree"
+
+echo "my favorite movie "leon""
+echo "my favorite movie \"leon\""
+echo "my favorite movie \"leon\"" > ./file.txt
+echo "my favorite movie" >> ./file.txt
+
+
+VAR="hello world"
+echo $VAR
+
+A="school"
+B="book"
+
+c="${A} ${B}"
+echo "${c}"
+
+
+exit
 
 echo "hello" \
         "text" \
@@ -48,11 +74,8 @@ echo "hello" \
 
 
 echo -e "hello""\nhi"
-
 echo -e "school\nhome"
-
 echo "Lorem Ipsum is simply dummy" > ./file.txt
-
 echo "Lorem Ipsum is simply dummy text of and typesetting industry" "\"the printing\""
 
 a='lorem ipsum'
