@@ -1,15 +1,12 @@
 #!/bin/bash
 set -e
 
-
+SERVICE_PATH='/etc/systemd/system/'
 echo $(id -u)
-
 if [ $(id -u) -ne 0 ]; then
-    echo "admin"
+    echo "should be run with sudo privileges"
     exit 1
 fi
-
-
 
 #sudo apt update && sudo apt upgrade -y
 function download() {
@@ -18,8 +15,8 @@ function download() {
     read control
 
     if [ $control -eq 1 ]; then
-        echo "En son sürüm kuruluyor..."
-        #sudo apt-get install nginx -y
+        echo "Installing the latest version.."
+        sudo apt-get install nginx -y
     elif [ $control -eq 2 ]; then
         version_list=(
             "1.24"
@@ -44,12 +41,13 @@ function download() {
         for item in "${version_list[@]}"; do
              echo "- $item"
         done
-        read -p "Lütfen yüklemek istediğiniz sürümü yazın: " NGINX_VERSION
+        read -p "Please type the version you want to install: " NGINX_VERSION
 
         if [[ " ${version_list[*]} " == *" $NGINX_VERSION "* ]]; then
-              echo "Seçilen sürüm kuruluyor: $NGINX_VERSION"
+              echo "Installing the selected version: $NGINX_VERSION"
+              sleep 2;
 
-              sudo apt-get -y --force-yes  install build-essential zlib1g-dev libpcre3 libpcre3-dev unzip apache2-utils make;
+              sudo apt-get -y --force-yes  install build-essential zlib1g-dev libpcre3 libpcre3-dev libssl-dev unzip apache2-utils make;
               sleep 2;
 
               wget  http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz;
@@ -57,24 +55,51 @@ function download() {
               tar -xvzf nginx-${NGINX_VERSION}.tar.gz;
 
               cd nginx-${NGINX_VERSION}/
-              echo 'Configure'
+              echo 'Configuration procedures are in progress'
               sleep 2;
-              ./configure
+              ./configure --prefix=/etc/nginx --modules-path=/etc/nginx/modules --with-http_ssl_module --without-mail_pop3_module --without-http_rewrite_module
 
-              echo 'Make';
+              echo 'Running the Make command';
               sleep 2;
               make;
 
-              echo 'Install';
+              echo 'Installing project and package dependencies';
               sleep 2;
               sudo make install;
 
+              SERVICE_NAME="nginx.service"
+              SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME"
+
+              # Servis dosyasının içeriği
+              SERVICE_CONTENT="[Unit]
+              Description=The nginx HTTP and reverse proxy server
+              Documentation=man:nginx(8)
+              After=network.target
+
+              [Service]
+              Type=forking
+              ExecStartPre=/usr/local/nginx/sbin/nginx -t
+              ExecStart=/usr/local/nginx/sbin/nginx
+              ExecReload=/usr/local/nginx/sbin/nginx -s reload
+              ExecStop=/usr/local/nginx/sbin/nginx -s stop
+              PrivateTmp=true
+
+              [Install]
+              WantedBy=multi-user.target"
+
+              echo "$SERVICE_CONTENT" | sudo tee $SERVICE_FILE > /dev/null
+
+              sudo systemctl daemon-reload
+              sleep 2
+
+              sudo systemctl start nginx
+
           else
-              echo "Geçersiz sürüm seçimi!"
+              echo "Not valid version selected!"
           fi
     else
-        "123123123"
-        echo "not"
+        echo "Please make a valid choice"
+        exit 1
     fi
 }
 
