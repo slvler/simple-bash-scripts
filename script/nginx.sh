@@ -8,7 +8,8 @@ if [ $(id -u) -ne 0 ]; then
     exit 1
 fi
 
-#sudo apt update && sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
+
 function download() {
     echo "1- Latest version"
     echo "2- Specific version"
@@ -70,7 +71,6 @@ function download() {
               SERVICE_NAME="nginx.service"
               SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME"
 
-              # Servis dosyasının içeriği
               SERVICE_CONTENT="[Unit]
               Description=The nginx HTTP and reverse proxy server
               Documentation=man:nginx(8)
@@ -113,7 +113,6 @@ function qt(){
 }
 
 
-
 if dpkg -s nginx &> /dev/null; then
     echo "Nginx is installed on the system"
     exit 1
@@ -121,9 +120,7 @@ else
     read -p "Nginx is not installed. Would you like to install it (Yes/y or No/n): " answer
     case "$answer" in
          [Ee]|[Yy])
-
              download
-             #sudo apt install apache2 -y
              ;;
          [Hh]|[Nn])
              echo "Nginx is not installed. The operation was canceled."

@@ -22,6 +22,12 @@ ls "$VAR_PATH"
 touch "$FILE"
 
 
+ln -s hello.sh simple.sh
+ls
+
+echo "copy script text" >> simple.sh
+cat simple.sh
+exit
 
 
 declare -r pwdfile=/etc/passwd

@@ -6,3 +6,4 @@ echo -n "hello"
 echo "world"
 echo "hi"
 echo "newlines"
+copy script text
