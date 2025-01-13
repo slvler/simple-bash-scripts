@@ -28,7 +28,10 @@ various bash scripts and topics
 8. [curl-file.sh](script/curl-file.sh): a tool for a simple curl client
 9. [delete-file.sh](script/delete-file.sh): a tool to delete files
 10. [notification.sh](script/notification.sh): a tool to use notification features
+11. [wallpaper.sh](script/wallpaper.sh): script to download random wallpaper
 
 ## Tool
 1. [nginx.sh](script/nginx.sh): nginx web server setup script
 2. [sublime.sh](script/sublime.sh): script that installs sublime text editor
+2. [postgresql-install.sh](script/postgresql-install.sh): postgresql setup script
+
