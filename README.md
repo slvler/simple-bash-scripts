@@ -10,6 +10,7 @@ various bash scripts and topics
 7. [command_substitution.sh](script/command_substitution.sh): command substitution
 8. [loop.sh](script/loop.sh): loop
 9. [symbol_link.sh](script/symbol_link.sh): symbol_link
+10. [numeric.sh](script/numeric.sh): numeric
 
 ## System Administration
 1. [update.sh](script/update.sh): update, upgrade
